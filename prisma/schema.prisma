@@ -24,6 +24,7 @@ model Project {
   category    String
   description String
   image       String?
+  websiteUrl  String?
   featured    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

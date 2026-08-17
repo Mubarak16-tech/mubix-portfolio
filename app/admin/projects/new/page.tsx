@@ -11,6 +11,7 @@ export default function NewProjectPage() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [websiteUrl, setWebsiteUrl] = useState("");
   const [featured, setFeatured] = useState(false);
 
   const [uploading, setUploading] = useState(false);
@@ -84,6 +85,7 @@ export default function NewProjectPage() {
           category,
           description,
           image: image || null,
+          websiteUrl: websiteUrl.trim() || null,
           featured,
         }),
       });
@@ -114,6 +116,7 @@ export default function NewProjectPage() {
   return (
     <main className="min-h-screen bg-[#050507] px-6 py-10 text-white md:px-10">
       <div className="mx-auto max-w-4xl">
+
         {/* HEADER */}
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-zinc-600">
@@ -134,6 +137,7 @@ export default function NewProjectPage() {
           onSubmit={handleSubmit}
           className="mt-10 space-y-8"
         >
+
           {/* PROJECT TITLE */}
           <div>
             <label className="mb-2 block text-sm text-zinc-400">
@@ -189,22 +193,30 @@ export default function NewProjectPage() {
               className="w-full rounded-xl border border-zinc-800 bg-[#0B0B10] px-4 py-4 text-white outline-none focus:border-zinc-500"
             >
               <option value="">Select category</option>
+
               <option value="Web Development">
                 Web Development
               </option>
+
               <option value="Web Design">
                 Web Design
               </option>
+
               <option value="UI/UX Design">
                 UI/UX Design
               </option>
+
               <option value="App Development">
                 App Development
               </option>
+
               <option value="Graphic Design">
                 Graphic Design
               </option>
-              <option value="Other">Other</option>
+
+              <option value="Other">
+                Other
+              </option>
             </select>
           </div>
 
@@ -222,6 +234,29 @@ export default function NewProjectPage() {
               required
               className="w-full resize-none rounded-xl border border-zinc-800 bg-[#0B0B10] px-4 py-4 text-white outline-none transition focus:border-zinc-500"
             />
+          </div>
+
+          {/* WEBSITE URL */}
+          <div>
+            <label className="mb-2 block text-sm text-zinc-400">
+              Website URL{" "}
+              <span className="text-zinc-600">
+                (Optional)
+              </span>
+            </label>
+
+            <input
+              type="url"
+              value={websiteUrl}
+              onChange={(e) => setWebsiteUrl(e.target.value)}
+              placeholder="https://example.com"
+              className="w-full rounded-xl border border-zinc-800 bg-[#0B0B10] px-4 py-4 text-white outline-none transition focus:border-zinc-500"
+            />
+
+            <p className="mt-2 text-xs text-zinc-700">
+              Add the live website link if this project has one.
+              Leave it empty if it does not.
+            </p>
           </div>
 
           {/* IMAGE UPLOAD */}
@@ -257,6 +292,7 @@ export default function NewProjectPage() {
               {image ? (
                 /* IMAGE PREVIEW */
                 <div className="relative w-full p-5">
+
                   <img
                     src={image}
                     alt="Project preview"
@@ -270,10 +306,12 @@ export default function NewProjectPage() {
                   >
                     Remove
                   </button>
+
                 </div>
               ) : (
                 /* UPLOAD AREA */
                 <div className="flex flex-col items-center justify-center p-8 text-center">
+
                   {uploading ? (
                     <>
                       <div className="mb-4 h-8 w-8 animate-spin rounded-full border-2 border-zinc-700 border-t-white" />
@@ -288,7 +326,9 @@ export default function NewProjectPage() {
                     </>
                   ) : (
                     <>
-                      <div className="text-4xl">📁</div>
+                      <div className="text-4xl">
+                        📁
+                      </div>
 
                       <p className="mt-4 text-lg font-medium">
                         Drag & Drop your image here
@@ -320,6 +360,7 @@ export default function NewProjectPage() {
                       </p>
                     </>
                   )}
+
                 </div>
               )}
             </div>
@@ -328,6 +369,7 @@ export default function NewProjectPage() {
           {/* FEATURED */}
           <div className="rounded-2xl border border-zinc-900 bg-[#0B0B10] p-5">
             <label className="flex cursor-pointer items-center gap-3">
+
               <input
                 type="checkbox"
                 checked={featured}
@@ -344,17 +386,21 @@ export default function NewProjectPage() {
                   Show this project prominently on your portfolio.
                 </p>
               </div>
+
             </label>
           </div>
 
           {/* BUTTONS */}
           <div className="flex flex-wrap gap-3 border-t border-zinc-900 pt-8">
+
             <button
               type="submit"
               disabled={creating || uploading}
               className="rounded-full bg-white px-7 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {creating ? "Creating..." : "Create Project"}
+              {creating
+                ? "Creating..."
+                : "Create Project"}
             </button>
 
             <button
@@ -364,7 +410,9 @@ export default function NewProjectPage() {
             >
               Cancel
             </button>
+
           </div>
+
         </form>
       </div>
     </main>

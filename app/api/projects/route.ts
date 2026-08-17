@@ -61,6 +61,7 @@ export async function POST(request: Request) {
         category: body.category,
         description: body.description,
         image: body.image || null,
+        websiteUrl: body.websiteUrl || null,
         featured: Boolean(body.featured),
       },
     });
