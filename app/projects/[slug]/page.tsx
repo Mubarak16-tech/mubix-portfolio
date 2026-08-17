@@ -1,33 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-
-type Project = {
-  id: string;
-  title: string;
-  slug: string;
-  category: string;
-  description: string;
-  image: string | null;
-  websiteUrl: string | null;
-  featured: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
-
-async function getProject(slug: string): Promise<Project | null> {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/projects/${slug}`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  if (!response.ok) {
-    return null;
-  }
-
-  return response.json();
-}
+import { prisma } from "@/lib/prisma";
 
 export default async function ProjectPage({
   params,
@@ -36,7 +9,11 @@ export default async function ProjectPage({
 }) {
   const { slug } = await params;
 
-  const project = await getProject(slug);
+  const project = await prisma.project.findUnique({
+    where: {
+      slug,
+    },
+  });
 
   if (!project) {
     notFound();
@@ -46,7 +23,7 @@ export default async function ProjectPage({
     <main className="min-h-screen bg-[#050507] px-6 py-24 text-white md:px-10">
       <div className="mx-auto max-w-6xl">
 
-        {/* BACK BUTTON */}
+        {/* BACK */}
         <Link
           href="/#projects"
           className="text-sm text-zinc-500 transition hover:text-white"
@@ -54,10 +31,10 @@ export default async function ProjectPage({
           ← Back to Projects
         </Link>
 
-        {/* PROJECT CARD */}
+        {/* PROJECT */}
         <div className="mt-10 overflow-hidden rounded-3xl border border-zinc-900 bg-[#0B0B10]">
 
-          {/* PROJECT IMAGE */}
+          {/* IMAGE */}
           {project.image && (
             <div className="relative aspect-video w-full overflow-hidden">
               <img
@@ -68,7 +45,7 @@ export default async function ProjectPage({
             </div>
           )}
 
-          {/* PROJECT CONTENT */}
+          {/* CONTENT */}
           <div className="p-8 md:p-12">
 
             {/* CATEGORY */}
